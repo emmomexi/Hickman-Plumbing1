@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 // --- 1. SEO METADATA (This shows up on Google search) ---
 export const metadata: Metadata = {
   title: "Hickman Plumbing Inc. | Scottsdale's Trusted Local Plumber",
-  description: "Family-owned & operated in Scottsdale, AZ since 2004. High-quality plumbing repairs, water heaters, and remodels. Call (480) 945-6771 for honest service.",
+  description: "Family-owned & operated in Scottsdale, AZ since 1984. High-quality plumbing repairs, water heaters, and remodels. Call (480) 945-6771 for honest service.",
 };
 
 export default function Home() {
