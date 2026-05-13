@@ -39,7 +39,7 @@ export default function Home() {
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-hickman-red/20 border border-hickman-red/30 px-4 py-1 rounded-full mb-6">
               <Star size={14} className="text-hickman-red fill-hickman-red" />
-              <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-white">Woman-Owned & Family Operated</span>
+              <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-white">Locally-Owned & Family Operated</span>
             </div>
             
             <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6 leading-[1.1]">
