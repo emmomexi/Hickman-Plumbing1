@@ -1,17 +1,51 @@
 import React from 'react';
 import { Phone, Star, ShieldCheck, Award, Droplets, MapPin, CheckCircle2, Clock } from 'lucide-react';
+import type { Metadata } from "next";
+
+// --- 1. SEO METADATA (This shows up on Google search) ---
+export const metadata: Metadata = {
+  title: "Hickman Plumbing Inc. | Scottsdale's Trusted Local Plumber",
+  description: "Family-owned & operated in Scottsdale, AZ since 2004. High-quality plumbing repairs, water heaters, and remodels. Call (480) 945-6771 for honest service.",
+};
 
 export default function Home() {
+  // --- 2. LOCAL BUSINESS SCHEMA (Helps with Google Maps ranking) ---
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "PlumbingBusiness",
+    "name": "Hickman Plumbing Inc.",
+    "url": "https://hickman-plumbing1.vercel.app", // Update this when you get your custom domain
+    "telephone": "+14809456771",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Scottsdale",
+      "addressRegion": "AZ",
+      "addressCountry": "US"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "07:00",
+      "closes": "17:00"
+    }
+  };
+
   return (
     <div className="bg-white text-[#1B2A41] font-sans min-h-screen">
+      {/* Add the Schema to the page safely */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       
-      {/* --- TOP CONTACT BAR (High Contrast) --- */}
+      {/* --- TOP CONTACT BAR --- */}
       <div className="bg-[#1B2A41] text-white py-3 px-6 border-b-4 border-[#B22234]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <span className="flex items-center gap-2 font-bold text-sm md:text-base">
+          <span className="flex items-center gap-2 font-bold text-sm md:text-base text-white">
             <MapPin size={20} className="text-[#B22234]"/> Scottsdale & Paradise Valley, AZ
           </span>
-          <a href="tel:4809456771" className="flex items-center gap-2 text-xl md:text-2xl hover:text-red-400 transition-colors font-black tracking-tight">
+          <a href="tel:4809456771" className="flex items-center gap-2 text-xl md:text-2xl hover:text-red-400 transition-colors font-black tracking-tight text-white">
             <Phone size={24} className="fill-white" /> (480) 945-6771
           </a>
         </div>
@@ -34,7 +68,7 @@ export default function Home() {
         </button>
       </nav>
 
-      {/* --- HERO SECTION (No busy background under text) --- */}
+      {/* --- HERO SECTION --- */}
       <section className="bg-gray-50 py-16 px-6 md:px-12 border-b">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -61,15 +95,15 @@ export default function Home() {
           <div className="relative">
             <div className="absolute -inset-2 bg-[#B22234] rounded-xl rotate-1"></div>
             <img 
-              src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=1000" 
+              src="https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=1000" 
               alt="Hickman Plumbing Service" 
-              className="relative rounded-lg shadow-2xl w-full h-[400px] object-cover"
+              className="relative rounded-lg shadow-2xl w-full h-[400px] object-cover bg-gray-200"
             />
           </div>
         </div>
       </section>
 
-      {/* --- CORE SERVICES (Solid White Backgrounds) --- */}
+      {/* --- CORE SERVICES --- */}
       <section id="services" className="py-24 px-6 max-w-7xl mx-auto">
         <h2 className="text-center text-4xl md:text-6xl font-serif font-black mb-4 text-[#1B2A41]">Our Services</h2>
         <p className="text-center text-xl text-gray-600 mb-16 font-bold uppercase tracking-widest">Scottsdale's Residential Experts</p>
@@ -89,9 +123,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- ABOUT SECTION (Clean Blue Background with White Text) --- */}
+      {/* --- ABOUT SECTION --- */}
       <section id="about" className="bg-[#1B2A41] text-white py-24 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-5xl mx-auto text-white">
           <div className="flex flex-col md:flex-row gap-16 items-center">
             <div className="w-full md:w-1/3">
                 <img 
@@ -102,14 +136,14 @@ export default function Home() {
             </div>
             <div className="w-full md:w-2/3">
               <h2 className="text-4xl md:text-5xl font-serif font-black mb-8 text-white underline decoration-[#B22234] decoration-4 underline-offset-8">A Message From Our Family</h2>
-              <p className="text-2xl leading-relaxed italic mb-8 font-medium">
+              <p className="text-2xl leading-relaxed italic mb-8 font-medium text-white">
                 "We built Hickman Plumbing on a simple idea: treat every customer like they are our own neighbor. No fancy sales talk, just honest plumbing and a fair price."
               </p>
               <div className="space-y-4">
-                <div className="flex items-center gap-4 text-xl font-black">
+                <div className="flex items-center gap-4 text-xl font-black text-white">
                   <CheckCircle2 size={28} className="text-[#B22234]" /> Licensed, Bonded, and Insured
                 </div>
-                <div className="flex items-center gap-4 text-xl font-black">
+                <div className="flex items-center gap-4 text-xl font-black text-white">
                   <CheckCircle2 size={28} className="text-[#B22234]" /> Senior & Veteran Pricing
                 </div>
               </div>
@@ -147,8 +181,8 @@ export default function Home() {
             <p className="text-xl font-black text-[#B22234] mt-4 italic">24/7 Emergency Service Available</p>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto mt-20 pt-10 border-t-2 border-gray-100 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-sm font-black uppercase tracking-widest text-gray-400">© 2024 Hickman Plumbing Inc. ROC #192837</p>
+        <div className="max-w-7xl mx-auto mt-20 pt-10 border-t-2 border-gray-100 flex flex-col md:flex-row justify-between items-center gap-8 text-gray-400 font-bold uppercase tracking-widest text-sm">
+          <p>© 2024 Hickman Plumbing Inc. ROC #192837</p>
           <div className="flex gap-2">
              <div className="h-8 w-12 bg-[#B22234]"></div>
              <div className="h-8 w-12 bg-white border-2 border-gray-200"></div>
