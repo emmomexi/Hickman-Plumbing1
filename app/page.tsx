@@ -118,7 +118,7 @@ export default function Home() {
                 <CheckCircle2 className="text-hickman-red" size={20}/> Licensed, Bonded, and Insured
               </div>
               <div className="flex items-center gap-3 font-bold text-hickman-navy">
-                <CheckCircle2 className="text-hickman-red" size={20}/> Senior & Military Discounts
+                <CheckCircle2 className="text-hickman-red" size={20}/> Discounted pricing
               </div>
               <div className="flex items-center gap-3 font-bold text-hickman-navy">
                 <CheckCircle2 className="text-hickman-red" size={20}/> Honest Upfront Estimates
