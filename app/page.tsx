@@ -3,11 +3,13 @@
 import React, { useState } from 'react';
 import { Phone, Star, ShieldCheck, Award, Droplets, MapPin, CheckCircle2, Clock, Calendar as CalendarIcon, Loader2 } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
+import { sendBookingEmail } from './actions';
 
 // --- SUPABASE CONFIGURATION ---
 // Note: I removed '/rest/v1/' from the URL as the client adds it automatically
-const SUPABASE_URL = 'https://aodxhmodorbcnhpsmipp.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvZHhobW9kb3JiY25ocHNtaXBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MjQ3MTYsImV4cCI6MjA5NDMwMDcxNn0.VGP0veGedVVKvLd4J84sKZxCKgX029Kt3Q6KauN5rGc';
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export default function Home() {
@@ -30,6 +32,9 @@ export default function Home() {
       .insert([formData]);
 
     if (!error) {
+      // Second: Trigger the email notification
+      await sendBookingEmail(formData);
+
       setSubmitted(true);
       setFormData({ name: '', phone: '', address: '', service_type: 'General Repair', preferred_date: '' });
     } else {

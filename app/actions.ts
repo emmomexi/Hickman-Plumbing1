@@ -3,7 +3,7 @@
 import { Resend } from 'resend';
 
 // Paste your Resend API Key here
-const resend = new Resend('re_Xs32tgV1_4Gtu1qLNMKqrwsxXvRjYPjAH');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendBookingEmail(formData: any) {
   try {
@@ -11,7 +11,7 @@ export async function sendBookingEmail(formData: any) {
 
     const { data, error } = await resend.emails.send({
       from: 'Hickman Plumbing <onboarding@resend.dev>', // Free tier default
-      to: ['savannahakins@gmail.com'], // CHANGE THIS to her email
+      to: ['jxmartinez3571@gmail.com'], // CHANGE THIS to her email
       subject: `NEW BOOKING: ${name}`,
       html: `
         <div style="font-family: sans-serif; border: 5px solid #1B2A41; padding: 20px;">
