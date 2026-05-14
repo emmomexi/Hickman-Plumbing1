@@ -104,7 +104,7 @@ export default function Home() {
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-800 mb-10 leading-relaxed font-medium text-left">
-              Since 1986, our family-owned company has proudly served Scottsdale with honesty and dependable craftsmanship. From residential repairs to large projects, we bring decades of experience to every job.
+              Since 1986, our family-owned company has proudly served Scottsdale with honesty, hard work, and dependable craftsmanship. From private residential repairs to large-scale commercial and infrastructure projects, we bring decades of hands-on experience and knowledge to every job. As proud Americans, we believe in doing things the right way, we take great pride in delivering quality work, trustworthy service, and lasting solutions our customers can rely on.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6">
@@ -169,7 +169,7 @@ export default function Home() {
                 <input 
                   required
                   type="text" 
-                  placeholder="Street address in Scottsdale/PV"
+                  placeholder="Street address"
                   className="w-full p-4 border-4 border-gray-200 rounded-lg text-lg font-bold focus:border-[#B22234] outline-none"
                   value={formData.address}
                   onChange={(e) => setFormData({...formData, address: e.target.value})}
@@ -239,7 +239,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row gap-16 items-center">
             <div className="w-full md:w-1/3">
                 <img 
-                  src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=800" 
+                  src="temp.jpeg" 
                   alt="Family Owned" 
                   className="rounded-full border-8 border-[#B22234] w-72 h-72 object-cover mx-auto shadow-2xl"
                 />
