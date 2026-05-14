@@ -82,7 +82,7 @@ export default function Home() {
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-800 mb-10 leading-relaxed font-medium">
-              Struggling with a leak? Need a new water heater? We provide honest, patriotic service to our Scottsdale neighbors with no hidden fees.
+              Since 1984, our family-owned plumbing company has proudly served our community with honesty, hard work, and dependable craftsmanship. From private residential homes to large-scale commercial and infrastructure projects, we bring decades of hands-on experience and knowledge to every job we take on. As proud Americans we believe in doing things the right way, we take great pride in delivering quality work, trustworthy service, and lasting solutions our costumers can rely on. 
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6">
@@ -168,7 +168,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-16">
           <div>
             <div className="text-3xl font-serif font-black mb-4">HICKMAN PLUMBING</div>
-            <p className="text-xl font-bold text-gray-700">Providing Honest American Service Since 2004.</p>
+            <p className="text-xl font-bold text-gray-700">Providing Honest American Service Since 1984.</p>
           </div>
           <div>
             <h4 className="font-black text-lg uppercase text-[#B22234] mb-6">Our Location</h4>
