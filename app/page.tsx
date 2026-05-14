@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 // --- 1. SEO METADATA (This shows up on Google search) ---
 export const metadata: Metadata = {
   title: "Hickman Plumbing Inc. | Scottsdale's Trusted Local Plumber",
-  description: "Family-owned & operated in Scottsdale, AZ since 1984. High-quality plumbing repairs, water heaters, and remodels. Call (480) 945-6771 for honest service.",
+  description: "Family-owned & operated in Scottsdale, AZ since 1986. High-quality plumbing repairs, water heaters, and remodels. Call (480) 945-6771 for honest service.",
 };
 
 export default function Home() {
@@ -74,7 +74,7 @@ export default function Home() {
           <div>
             <div className="inline-flex items-center gap-2 mb-6">
               <Star size={20} className="text-[#B22234] fill-[#B22234]" />
-              <span className="text-lg font-black uppercase tracking-widest text-[#B22234]">Family Owned Since 2004</span>
+              <span className="text-lg font-black uppercase tracking-widest text-[#B22234]">Family Owned Since 1986</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-serif font-black mb-8 text-[#1B2A41] leading-tight">
@@ -168,7 +168,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-16">
           <div>
             <div className="text-3xl font-serif font-black mb-4">HICKMAN PLUMBING</div>
-            <p className="text-xl font-bold text-gray-700">Providing Honest American Service Since 1984.</p>
+            <p className="text-xl font-bold text-gray-700">Providing Honest American Service Since 1986.</p>
           </div>
           <div>
             <h4 className="font-black text-lg uppercase text-[#B22234] mb-6">Our Location</h4>
