@@ -3,7 +3,7 @@
 import { Resend } from 'resend';
 
 // Paste your Resend API Key here
-const resend = new Resend('re_YOUR_API_KEY_HERE');
+const resend = new Resend('re_Xs32tgV1_4Gtu1qLNMKqrwsxXvRjYPjAH');
 
 export async function sendBookingEmail(formData: any) {
   try {
