@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Phone, Star, ShieldCheck, Award, Droplets, MapPin, CheckCircle2, Clock, Calendar as CalendarIcon, Loader2 } from 'lucide-react';
-import { sendBookingEmail } from './actions';
+import { Phone, Star, ShieldCheck, Award, Droplets, CheckCircle2, Calendar as CalendarIcon, Loader2 } from 'lucide-react';
+import { SiteHeader } from '@/components/site-header';
+import { SiteFooter } from '@/components/site-footer';
+import { submitBookingRequest } from './actions';
 import { PLUMBING_SERVICES, getServiceOptions, formatServiceType } from './services';
-import { createClient, isSupabaseConfigError } from '@/lib/supabase';
 import type { BookingInsert } from '@/lib/types/database';
 
 const EMPTY_FORM = {
@@ -46,33 +47,17 @@ export default function Home() {
       service_type: formatServiceType(formData.service_category, formData.service_option),
     };
 
-    try {
-      const { error } = await createClient()
-        .from('bookings')
-        .insert([submission]);
+    const result = await submitBookingRequest(submission);
 
-      if (error) {
-        console.error('Supabase insert error:', error.message);
-        alert('Error submitting request. Please call us directly at (480) 945-6111!');
-        return;
-      }
-
-      await sendBookingEmail(submission);
-
-      setSubmitted(true);
-      setFormData(EMPTY_FORM);
-    } catch (error) {
-      if (isSupabaseConfigError(error)) {
-        console.error(error.message);
-        alert('Booking is temporarily unavailable. Please call us directly at (480) 945-6111!');
-        return;
-      }
-
-      console.error('Unexpected booking error:', error);
-      alert('Error submitting request. Please call us directly at (480) 945-6111!');
-    } finally {
+    if (!result.success) {
+      alert(result.error);
       setLoading(false);
+      return;
     }
+
+    setSubmitted(true);
+    setFormData(EMPTY_FORM);
+    setLoading(false);
   };
 
   // Local Business Schema for Google
@@ -96,32 +81,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       
-      {/* --- TOP CONTACT BAR --- */}
-      <div className="bg-[#1B2A41] text-white py-3 px-4 md:px-6 border-b-4 border-[#B22234]">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-          <span className="flex items-center gap-2 font-bold text-sm md:text-base text-white">
-            <MapPin size={20} className="text-[#B22234]"/> Scottsdale & Paradise Valley, AZ
-          </span>
-          <a href="tel:4809456771" className="flex items-center gap-2 text-xl md:text-2xl hover:text-red-400 transition-colors font-black tracking-tight text-white">
-            <Phone size={24} className="fill-white" /> (480) 945-6111 or (480) 945-6771
-          </a>
-        </div>
-      </div>
-
-      {/* --- NAVIGATION --- */}
-      <nav className="bg-white py-4 md:py-6 px-4 md:px-12 flex justify-between items-center border-b-2 border-gray-100 sticky top-0 z-50">
-        <div className="flex flex-col">
-          <span className="text-2xl md:text-4xl font-serif font-black tracking-tighter text-[#1B2A41] leading-none uppercase">Hickman</span>
-          <span className="text-[10px] md:text-sm font-bold tracking-[0.2em] md:tracking-[0.3em] text-[#B22234] uppercase">Plumbing Inc.</span>
-        </div>
-        
-        <button 
-          onClick={() => document.getElementById('booking')?.scrollIntoView({behavior: 'smooth'})}
-          className="bg-[#B22234] text-white px-4 py-3 md:px-8 md:py-4 rounded-md font-black hover:bg-[#1B2A41] transition-all shadow-md text-sm md:text-lg uppercase tracking-tight"
-        >
-          Book Online
-        </button>
-      </nav>
+      <SiteHeader activePage="home" />
 
       {/* --- HERO SECTION --- */}
       <section className="bg-gray-50 py-10 md:py-16 px-4 md:px-12 border-b">
@@ -141,8 +101,8 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6">
-              <a href="tel:4809456771" className="bg-[#B22234] text-white px-8 py-5 md:px-10 md:py-6 rounded-md font-black text-xl md:text-2xl flex items-center justify-center gap-4 hover:scale-105 transition-all shadow-xl">
-                <Phone size={28} /> (480) 945-6771
+              <a href="tel:4809456111" className="bg-[#B22234] text-white px-8 py-5 md:px-10 md:py-6 rounded-md font-black text-xl md:text-2xl flex items-center justify-center gap-4 hover:scale-105 transition-all shadow-xl">
+                <Phone size={28} /> (480) 945-6111 or (480) 945-6771
               </a>
             </div>
           </div>
@@ -192,7 +152,7 @@ export default function Home() {
                 <input 
                   required
                   type="tel" 
-                  placeholder="(480) 000-0000"
+                  placeholder="(000) 000-0000"
                   className="w-full p-4 border-2 md:border-4 border-gray-200 rounded-lg text-lg font-bold focus:border-[#B22234] outline-none"
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
@@ -203,7 +163,7 @@ export default function Home() {
                 <input 
                   required
                   type="text" 
-                  placeholder="Street address in Scottsdale/PV"
+                  placeholder="Street address"
                   className="w-full p-4 border-2 md:border-4 border-gray-200 rounded-lg text-lg font-bold focus:border-[#B22234] outline-none"
                   value={formData.address}
                   onChange={(e) => setFormData({...formData, address: e.target.value})}
@@ -313,42 +273,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- EMERGENCY BANNER --- */}
-      <section className="bg-yellow-400 py-10 md:py-12 px-4 md:px-6 border-y-4 border-black text-center">
-        <div className="max-w-4xl mx-auto">
-            <div className="flex justify-center mb-4"><Clock size={48} className="text-black" /></div>
-            <h2 className="text-3xl md:text-5xl font-black text-black mb-6 uppercase italic tracking-tighter">Need Help Right Now?</h2>
-            <a href="tel:4809456771" className="inline-block bg-black text-white px-8 md:px-12 py-5 md:py-6 rounded-md font-black text-2xl md:text-3xl shadow-xl hover:scale-105 transition-transform">
-                CALL (480) 945-6111 or (480) 945-6771
-            </a>
-        </div>
-      </section>
-
-      {/* --- FOOTER --- */}
-      <footer className="bg-white text-[#1B2A41] py-16 md:py-20 px-4 md:px-6 border-t-8 border-[#1B2A41]">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 md:gap-16 font-bold text-center md:text-left">
-          <div>
-            <div className="text-2xl md:text-3xl font-serif font-black mb-4">HICKMAN PLUMBING</div>
-            <p className="text-lg md:text-xl">Proudly American Owned. Serving the Valley Since 1986.</p>
-          </div>
-          <div>
-            <h4 className="uppercase text-[#B22234] mb-4 tracking-widest text-sm md:text-base">Office Location</h4>
-            <p className="text-xl md:text-2xl font-black">Tempe, AZ</p>
-            <p className="text-base md:text-lg mt-2">Serving Valley-Wide Locations</p>
-          </div>
-          <div className="flex flex-col gap-4 items-center md:items-start">
-             <h4 className="uppercase text-[#B22234] tracking-widest text-sm md:text-base">Patriotic Values</h4>
-             <div className="flex gap-2">
-                <div className="h-8 w-12 md:h-10 md:w-16 bg-[#B22234]"></div>
-                <div className="h-8 w-12 md:h-10 md:w-16 bg-white border-2 border-gray-200"></div>
-                <div className="h-8 w-12 md:h-10 md:w-16 bg-[#1B2A41]"></div>
-             </div>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto mt-16 pt-10 border-t-2 border-gray-100 text-gray-400 font-bold uppercase tracking-widest text-[10px] md:text-xs text-center md:text-left">
-          <p>© 2024 Hickman Plumbing Inc. ROC #192837</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

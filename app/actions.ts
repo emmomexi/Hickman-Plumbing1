@@ -1,11 +1,38 @@
 'use server';
 
+import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
+import type { BookingInsert } from '@/lib/types/database';
 
-// Paste your Resend API Key here
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function sendBookingEmail(formData: any) {
+export async function submitBookingRequest(submission: BookingInsert) {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim();
+
+  if (!url || !anonKey) {
+    return {
+      success: false as const,
+      error: 'Booking is temporarily unavailable. Please call us directly at (480) 945-6111 or (480) 945-6771!',
+    };
+  }
+
+  const supabase = createClient(url, anonKey);
+  const { error } = await supabase.from('bookings').insert([submission]);
+
+  if (error) {
+    console.error('Supabase insert error:', error.message);
+    return {
+      success: false as const,
+      error: 'Error submitting request. Please call us directly at (480) 945-6111 or (480) 945-6771!',
+    };
+  }
+
+  await sendBookingEmail(submission);
+  return { success: true as const };
+}
+
+async function sendBookingEmail(formData: BookingInsert) {
   try {
     const { name, phone, address, service_type, preferred_date } = formData;
 
