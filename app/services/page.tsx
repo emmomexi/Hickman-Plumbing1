@@ -76,30 +76,30 @@ const previousCustomers = [
 
 export default function ServicesPage() {
   return (
-    <div className="bg-white text-[#1B2A41] font-sans min-h-screen">
+    <div className="bg-page text-primary font-sans min-h-screen transition-colors">
       <SiteHeader activePage="services" />
 
-      <section className="bg-gray-50 py-10 md:py-16 px-4 md:px-12 border-b">
+      <section className="bg-section py-10 md:py-16 px-4 md:px-12 border-b border-border transition-colors">
         <div className="max-w-7xl mx-auto">
           <div className="inline-flex items-center gap-2 mb-4 md:mb-6">
-            <Star size={20} className="text-[#B22234] fill-[#B22234]" />
-            <span className="text-base md:text-lg font-black uppercase tracking-widest text-[#B22234]">
+            <Star size={20} className="text-brand-red fill-brand-red" />
+            <span className="text-base md:text-lg font-black uppercase tracking-widest text-brand-red">
               Commercial & Residential
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-7xl font-serif font-black mb-6 md:mb-8 text-[#1B2A41] leading-tight uppercase">
-            Our <span className="text-[#B22234]">Services</span>
+          <h1 className="text-4xl md:text-7xl font-serif font-black mb-6 md:mb-8 text-primary leading-tight uppercase">
+            Our <span className="text-brand-red">Services</span>
           </h1>
 
-          <p className="text-lg md:text-2xl text-gray-800 mb-8 md:mb-10 leading-relaxed font-medium max-w-4xl">
+          <p className="text-lg md:text-2xl text-body mb-8 md:mb-10 leading-relaxed font-medium max-w-4xl">
             From Southwest Gas preferred work to large commercial projects, Hickman Plumbing
             delivers dependable craftsmanship backed by decades of hands-on experience.
           </p>
 
           <a
             href="tel:4809456111"
-            className="inline-flex bg-[#B22234] text-white px-8 py-5 md:px-10 md:py-6 rounded-md font-black text-xl md:text-2xl items-center justify-center gap-4 hover:scale-105 transition-all shadow-xl"
+            className="inline-flex bg-brand-red text-white px-8 py-5 md:px-10 md:py-6 rounded-md font-black text-xl md:text-2xl items-center justify-center gap-4 hover:scale-105 transition-all shadow-xl"
           >
             <Phone size={28} /> (480) 945-6111 or (480) 945-6771
           </a>
@@ -108,35 +108,32 @@ export default function ServicesPage() {
 
       <section className="py-16 md:py-24 px-4 md:px-6 max-w-7xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
-          <p className="text-base md:text-lg font-black uppercase tracking-[0.3em] text-[#B22234] mb-4">
+          <p className="text-base md:text-lg font-black uppercase tracking-[0.3em] text-brand-red mb-4">
             Southwest Preferred List
           </p>
-          <h2 className="text-3xl md:text-6xl font-serif font-black text-[#1B2A41] uppercase italic">
+          <h2 className="text-3xl md:text-6xl font-serif font-black text-primary uppercase italic">
             We Are on the Southwest Preferred List
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 mt-6 font-bold uppercase tracking-widest">
+          <p className="text-lg md:text-xl text-muted mt-6 font-bold uppercase tracking-widest">
             Gas Repairs · Hot Water Tanks · Stoves · BBQ & Pools
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
           {southwestServices.map((item) => (
-            <div
-              key={item.title}
-              className="bg-white p-8 md:p-10 border-4 border-[#1B2A41] shadow-[10px_10px_0px_0px_rgba(27,42,65,1)]"
-            >
-              <item.icon size={48} className="text-[#B22234] mb-6" />
-              <h3 className="text-2xl md:text-3xl font-serif font-black mb-4 uppercase">{item.title}</h3>
-              <p className="text-lg text-gray-800 leading-relaxed font-semibold">{item.desc}</p>
+            <div key={item.title} className="card-surface p-8 md:p-10">
+              <item.icon size={48} className="text-brand-red mb-6" />
+              <h3 className="text-2xl md:text-3xl font-serif font-black mb-4 uppercase text-primary">{item.title}</h3>
+              <p className="text-lg text-body leading-relaxed font-semibold">{item.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-[#1B2A41] text-white py-16 md:py-24 px-4 md:px-6 border-y-8 border-[#B22234]">
+      <section className="bg-brand-navy text-white py-16 md:py-24 px-4 md:px-6 border-y-8 border-brand-red">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-6xl font-serif font-black uppercase underline decoration-[#B22234] decoration-4 md:decoration-8 underline-offset-8">
+            <h2 className="text-3xl md:text-6xl font-serif font-black uppercase underline decoration-brand-red decoration-4 md:decoration-8 underline-offset-8">
               Previous Customers
             </h2>
             <p className="text-lg md:text-xl text-gray-300 mt-6 font-medium italic max-w-3xl mx-auto">
@@ -149,12 +146,12 @@ export default function ServicesPage() {
             {previousCustomers.map((item) => (
               <div
                 key={item.title}
-                className="bg-[#243652] border-4 border-[#B22234] p-8 md:p-10 shadow-[10px_10px_0px_0px_rgba(178,34,52,1)] flex flex-col"
+                className="bg-[#243652] dark:bg-[#1a2738] border-4 border-brand-red p-8 md:p-10 shadow-[10px_10px_0px_0px_rgba(178,34,52,1)] flex flex-col"
               >
-                <item.icon size={40} className="text-[#B22234] mb-4" />
+                <item.icon size={40} className="text-brand-red mb-4" />
                 <h3 className="text-xl md:text-2xl font-serif font-black mb-3 uppercase">{item.title}</h3>
                 <p className="text-base md:text-lg text-gray-300 font-medium mb-6 flex-grow">{item.desc}</p>
-                <div className="min-h-[80px] border-2 border-dashed border-gray-500 rounded-lg flex items-center justify-center bg-[#1B2A41]/50">
+                <div className="min-h-[80px] border-2 border-dashed border-gray-500 dark:border-gray-600 rounded-lg flex items-center justify-center bg-brand-navy/50">
                   <span className="text-sm font-bold uppercase tracking-widest text-gray-400">
                     Customer showcase
                   </span>
@@ -164,22 +161,22 @@ export default function ServicesPage() {
           </div>
 
           <div className="mt-12 flex items-center justify-center gap-4 text-lg md:text-xl font-black uppercase">
-            <CheckCircle2 size={24} className="text-[#B22234]" /> Licensed, Bonded & Insured
+            <CheckCircle2 size={24} className="text-brand-red" /> Licensed, Bonded & Insured
           </div>
         </div>
       </section>
 
-      <section className="py-16 md:py-20 px-4 md:px-6 text-center">
-        <div className="max-w-3xl mx-auto border-4 md:border-8 border-[#1B2A41] p-8 md:p-12 shadow-[10px_10px_0px_0px_rgba(178,34,52,1)]">
-          <h2 className="text-3xl md:text-5xl font-serif font-black text-[#1B2A41] mb-4 uppercase">
+      <section className="py-16 md:py-20 px-4 md:px-6 text-center bg-page transition-colors">
+        <div className="max-w-3xl mx-auto card-accent p-8 md:p-12">
+          <h2 className="text-3xl md:text-5xl font-serif font-black text-primary mb-4 uppercase">
             Ready to Get Started?
           </h2>
-          <p className="text-lg md:text-xl font-bold text-gray-600 italic mb-8">
+          <p className="text-lg md:text-xl font-bold text-muted italic mb-8">
             Schedule service online or call us directly.
           </p>
           <Link
             href="/#booking"
-            className="inline-block bg-[#1B2A41] text-white px-8 py-5 md:px-12 md:py-6 rounded-lg font-black text-xl md:text-2xl uppercase tracking-widest hover:bg-[#B22234] transition-all"
+            className="inline-block bg-brand-navy text-white px-8 py-5 md:px-12 md:py-6 rounded-lg font-black text-xl md:text-2xl uppercase tracking-widest hover:bg-brand-red transition-all"
           >
             Book Online
           </Link>

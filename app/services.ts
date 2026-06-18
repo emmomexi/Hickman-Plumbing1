@@ -13,6 +13,10 @@ export const PLUMBING_SERVICES: PlumbingService[] = [
     options: ['Hot Water Tank', 'Tankless Hot Water'],
   },
   {
+    label: 'Gas Lines',
+    options: ['Full Diagnostics', 'Full Installs', 'Repair', 'Reroutes'],
+  },
+  {
     label: 'Plumbing Remodel and Repair',
     options: ['Kitchen', 'Bathroom'],
   },

@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-navy: #1b2a41;
+  --brand-red: #b22234;
+
+  --page-bg: #ffffff;
+  --section-bg: #f9fafb;
+  --surface: #ffffff;
+  --surface-muted: #f3f4f6;
+  --text-primary: #1b2a41;
+  --text-body: #1f2937;
+  --text-muted: #4b5563;
+  --border: #e5e7eb;
+  --input-bg: #ffffff;
+  --input-border: #e5e7eb;
+  --card-shadow: rgba(27, 42, 65, 1);
+  --accent-shadow: rgba(178, 34, 52, 1);
+  --emergency-bg: #facc15;
+  --emergency-text: #000000;
+  --footer-border: #1b2a41;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --page-bg: #0a1018;
+  --section-bg: #0f1726;
+  --surface: #162233;
+  --surface-muted: #1a2738;
+  --text-primary: #f3f4f6;
+  --text-body: #d1d5db;
+  --text-muted: #9ca3af;
+  --border: #2d3f56;
+  --input-bg: #111b29;
+  --input-border: #3d5268;
+  --card-shadow: rgba(178, 34, 52, 0.45);
+  --accent-shadow: rgba(178, 34, 52, 0.7);
+  --emergency-bg: #b45309;
+  --emergency-text: #fef3c7;
+  --footer-border: #b22234;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-red: var(--brand-red);
+  --color-page: var(--page-bg);
+  --color-section: var(--section-bg);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-primary: var(--text-primary);
+  --color-body: var(--text-body);
+  --color-muted: var(--text-muted);
+  --color-border: var(--border);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--page-bg);
+  color: var(--text-primary);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  outline: none;
+  background-color: var(--input-bg);
+  border: 2px solid var(--input-border);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .form-input {
+    border-width: 4px;
+  }
+}
+
+.form-input:focus {
+  border-color: var(--brand-red);
+}
+
+.form-input:disabled {
+  background-color: var(--surface-muted);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+.card-surface {
+  background-color: var(--surface);
+  border: 4px solid var(--brand-navy);
+  box-shadow: 10px 10px 0 0 var(--card-shadow);
+}
+
+.dark .card-surface {
+  border-color: #3d5268;
+}
+
+.card-accent {
+  background-color: var(--surface);
+  border: 4px solid var(--brand-navy);
+  box-shadow: 10px 10px 0 0 var(--accent-shadow);
+}
+
+@media (min-width: 768px) {
+  .card-accent {
+    border-width: 8px;
+    box-shadow: 20px 20px 0 0 var(--accent-shadow);
+  }
+}
+
+.dark .card-accent {
+  border-color: var(--brand-red);
 }
