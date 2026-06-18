@@ -1,0 +1,18 @@
+---
+pid: 19692
+cwd: "C:\Windows\System32\hickman-plumbing"
+command: "npx next dev --port 3000"
+started_at: 2026-06-18T00:46:11.533Z
+running_for_ms: 2369997  
+---
+⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::3000
+    at <unknown> (Error: listen EADDRINUSE: address already in use :::3000)
+    at new Promise (<anonymous>) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+

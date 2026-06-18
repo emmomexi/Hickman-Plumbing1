@@ -1,0 +1,12 @@
+---
+pid: 24464
+cwd: "C:\Windows\System32\hickman-plumbing"
+command: "if (Test-Path .next) { Remove-Item -Recurse -Force .next }; npm run dev"
+started_at: 2026-06-18T00:43:20.037Z
+running_for_ms: 2540007  
+---
+ParserError: 
+Line |
+   1 |  . && if (Test-Path .next) { Remove-Item -Recurse -Force .next }; npm ru .
+     |                                                                 ~
+     | Missing closing ')' in expression.

@@ -2,45 +2,77 @@
 
 import React, { useState } from 'react';
 import { Phone, Star, ShieldCheck, Award, Droplets, MapPin, CheckCircle2, Clock, Calendar as CalendarIcon, Loader2 } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
 import { sendBookingEmail } from './actions';
+import { PLUMBING_SERVICES, getServiceOptions, formatServiceType } from './services';
+import { createClient, isSupabaseConfigError } from '@/lib/supabase';
+import type { BookingInsert } from '@/lib/types/database';
 
-// --- SUPABASE CONFIGURATION ---
-// Note: I removed '/rest/v1/' from the URL as the client adds it automatically
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const EMPTY_FORM = {
+  name: '',
+  phone: '',
+  address: '',
+  service_category: '',
+  service_option: '',
+  preferred_date: '',
+};
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    address: '',
-    service_type: 'General Repair',
-    preferred_date: ''
-  });
+  const [formData, setFormData] = useState(EMPTY_FORM);
+
+  const serviceOptions = getServiceOptions(formData.service_category);
+  const requiresServiceOption = Boolean(serviceOptions?.length);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    
-    const { error } = await supabase
-      .from('bookings')
-      .insert([formData]);
 
-    if (!error) {
-      // Second: Trigger the email notification
-      await sendBookingEmail(formData);
+    if (!formData.service_category) {
+      alert('Please select a service.');
+      return;
+    }
+    if (requiresServiceOption && !formData.service_option) {
+      alert('Please select a specific service option.');
+      return;
+    }
+
+    setLoading(true);
+
+    const submission: BookingInsert = {
+      name: formData.name,
+      phone: formData.phone,
+      address: formData.address,
+      preferred_date: formData.preferred_date,
+      service_type: formatServiceType(formData.service_category, formData.service_option),
+    };
+
+    try {
+      const { error } = await createClient()
+        .from('bookings')
+        .insert([submission]);
+
+      if (error) {
+        console.error('Supabase insert error:', error.message);
+        alert('Error submitting request. Please call us directly at (480) 945-6111!');
+        return;
+      }
+
+      await sendBookingEmail(submission);
 
       setSubmitted(true);
-      setFormData({ name: '', phone: '', address: '', service_type: 'General Repair', preferred_date: '' });
-    } else {
-      alert("Error submitting request. Please call us directly at (480) 945-6111!");
+      setFormData(EMPTY_FORM);
+    } catch (error) {
+      if (isSupabaseConfigError(error)) {
+        console.error(error.message);
+        alert('Booking is temporarily unavailable. Please call us directly at (480) 945-6111!');
+        return;
+      }
+
+      console.error('Unexpected booking error:', error);
+      alert('Error submitting request. Please call us directly at (480) 945-6111!');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   // Local Business Schema for Google
@@ -178,16 +210,36 @@ export default function Home() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-base md:text-lg font-black uppercase text-[#1B2A41]">Service Needed</label>
-                <select 
+                <label className="text-base md:text-lg font-black uppercase text-[#1B2A41]">Service Category</label>
+                <select
+                  required
                   className="w-full p-4 border-2 md:border-4 border-gray-200 rounded-lg text-lg font-bold focus:border-[#B22234] outline-none"
-                  value={formData.service_type}
-                  onChange={(e) => setFormData({...formData, service_type: e.target.value})}
+                  value={formData.service_category}
+                  onChange={(e) => setFormData({ ...formData, service_category: e.target.value, service_option: '' })}
                 >
-                  <option>General Repair</option>
-                  <option>Water Heater</option>
-                  <option>Drain Cleaning</option>
-                  <option>Remodel</option>
+                  <option value="">Select a service...</option>
+                  {PLUMBING_SERVICES.map((service) => (
+                    <option key={service.label} value={service.label}>{service.label}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-base md:text-lg font-black uppercase text-[#1B2A41]">
+                  {requiresServiceOption ? 'Service Option' : 'Service Details'}
+                </label>
+                <select
+                  required={requiresServiceOption}
+                  disabled={!requiresServiceOption}
+                  className="w-full p-4 border-2 md:border-4 border-gray-200 rounded-lg text-lg font-bold focus:border-[#B22234] outline-none disabled:bg-gray-100 disabled:text-gray-500"
+                  value={formData.service_option}
+                  onChange={(e) => setFormData({ ...formData, service_option: e.target.value })}
+                >
+                  <option value="">
+                    {requiresServiceOption ? 'Select an option...' : 'No additional options'}
+                  </option>
+                  {serviceOptions?.map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
                 </select>
               </div>
               <div className="space-y-2">
@@ -253,10 +305,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col gap-4 items-center md:items-start">
                 <div className="flex items-center gap-4 text-lg md:text-xl font-black text-white uppercase">
-                  <CheckCircle2 size={24} className="text-[#B22234]" /> Licensed & Bonded
-                </div>
-                <div className="flex items-center gap-4 text-lg md:text-xl font-black text-white uppercase">
-                  <CheckCircle2 size={24} className="text-[#B22234]" /> Senior & Veteran Discounts
+                  <CheckCircle2 size={24} className="text-[#B22234]" /> Licensed, Bonded & Insured
                 </div>
               </div>
             </div>
