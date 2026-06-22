@@ -3,7 +3,7 @@ pid: 19692
 cwd: "C:\Windows\System32\hickman-plumbing"
 command: "npx next dev --port 3000"
 started_at: 2026-06-18T00:46:11.533Z
-running_for_ms: 6550011  
+running_for_ms: 77530002 
 ---
 ⨯ Failed to start server
 Error: listen EADDRINUSE: address already in use :::3000

@@ -3,7 +3,7 @@ pid: 24372
 cwd: "C:\Windows\System32\hickman-plumbing"
 command: "Get-Process -Name node -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue; Remove-Item -Recurse -Force \".next\" -ErrorAction SilentlyContinue; npm run dev"
 started_at: 2026-06-18T00:42:42.482Z
-running_for_ms: 6760008  
+running_for_ms: 77739997 
 ---
 ParserError: 
 Line |

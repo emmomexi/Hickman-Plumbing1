@@ -3,7 +3,7 @@ import { Phone, MapPin } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
 
 type SiteHeaderProps = {
-  activePage?: 'home' | 'services';
+  activePage?: 'home' | 'services' | 'our-work';
 };
 
 export function SiteHeader({ activePage = 'home' }: SiteHeaderProps) {
@@ -44,11 +44,19 @@ export function SiteHeader({ activePage = 'home' }: SiteHeaderProps) {
           </Link>
           <Link
             href="/services"
-            className={`hidden sm:inline font-black uppercase tracking-tight text-sm md:text-base transition-colors ${
+            className={`hidden md:inline font-black uppercase tracking-tight text-sm md:text-base transition-colors ${
               activePage === 'services' ? 'text-brand-red' : 'text-primary hover:text-brand-red'
             }`}
           >
             Services
+          </Link>
+          <Link
+            href="/our-work"
+            className={`hidden md:inline font-black uppercase tracking-tight text-sm md:text-base transition-colors ${
+              activePage === 'our-work' ? 'text-brand-red' : 'text-primary hover:text-brand-red'
+            }`}
+          >
+            Our Work
           </Link>
           <ThemeToggle />
           <Link

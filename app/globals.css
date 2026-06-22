@@ -122,3 +122,92 @@ body {
 .dark .card-accent {
   border-color: var(--brand-red);
 }
+
+/* --- Bento grid portfolio --- */
+.bento-card {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.bento-card-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bento-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(140px, auto);
+}
+
+@media (min-width: 640px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .bento-hero {
+    grid-column: span 2;
+    grid-row: span 2;
+    min-height: 280px;
+  }
+
+  .bento-stat {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .bento-stat-accent {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .bento-skills {
+    grid-column: span 1;
+    grid-row: span 2;
+    min-height: 280px;
+  }
+
+  .bento-project-lg {
+    grid-column: span 2;
+    grid-row: span 1;
+    min-height: 180px;
+  }
+
+  .bento-project-sm {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 160px;
+  }
+
+  .bento-project-md {
+    grid-column: span 2;
+    grid-row: span 1;
+    min-height: 160px;
+  }
+
+  .bento-contact {
+    grid-column: span 2;
+    grid-row: span 1;
+    min-height: 160px;
+  }
+
+  .bento-phone {
+    grid-column: span 2;
+    grid-row: span 1;
+    min-height: 160px;
+  }
+}
