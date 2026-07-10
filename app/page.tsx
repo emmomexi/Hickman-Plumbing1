@@ -234,7 +234,7 @@ export default function Home() {
         
         <div className="grid md:grid-cols-3 gap-8 md:gap-12">
           {[
-            { title: "Leaks & Repairs", desc: "Expert service for faucets, toilets, and broken pipes.", icon: <ShieldCheck size={48} className="text-brand-red"/> },
+            { title: "Gas, Leaks & Repairs", desc: "Expert service for faucets, toilets, broken pipes, gas leaks and repairs.", icon: <ShieldCheck size={48} className="text-brand-red"/> },
             { title: "Water Heaters", desc: "Installation and repair for all traditional and tankless units.", icon: <Droplets size={48} className="text-brand-red"/> },
             { title: "Bath & Kitchen", desc: "Premium plumbing for your Scottsdale remodeling project.", icon: <Award size={48} className="text-brand-red"/> }
           ].map((item, i) => (
@@ -255,7 +255,7 @@ export default function Home() {
                 <img 
                   src="/temp.jpeg" 
                   alt="Hickman Family Heritage" 
-                  className="rounded-full border-4 md:border-8 border-brand-red w-56 h-56 md:w-72 md:h-72 object-cover mx-auto shadow-2xl"
+                  className="rounded-xl border-4 md:border-8 border-brand-red w-full max-w-md md:max-w-none h-auto mx-auto shadow-2xl"
                 />
             </div>
             <div className="w-full md:w-2/3">
